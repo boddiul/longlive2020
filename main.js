@@ -17,9 +17,11 @@ async function download() {
     //document.body.removeChild(a);
 
 
-    canvas.toBlob(function(blob) {
-        saveAs(blob, "ava.png");
-    });
+
+        send("VKWebAppDownloadFile", {
+                "url": await canvas.toDataURL(),
+                "filename":"ava.png"
+            });
 
 }
 

@@ -291,16 +291,16 @@ function checker(event)
 
 
             let upload_url = event.detail.data.response.upload_url
-            canvas.toDataURL(function(blob) {
-                console.log(blob)
+            let d = canvas.toDataURL()
 
-                jQuery.get('https://longlive2020.herokuapp.com/index.php?img='+blob, function(e) {
+            console.log(d)
+
+                jQuery.get('https://longlive2020.herokuapp.com/index.php?img='+d, function(e) {
 
                     console.log(e)
 
                 });
 
-            });
 
 
 

@@ -436,13 +436,23 @@ function click_mouse(event)
         //downloadImage(dataURL, 'ava.jpeg');
 
 
-        send("VKWebAppCallAPIMethod", {
-            "method":"photos.getOwnerPhotoUploadServer",
-            "request_id":"1",
-            "params": {
-                "access_token":t,
-                "v":"5.122"
-            }});
+        //send("VKWebAppCallAPIMethod", {
+        //    "method":"photos.getOwnerPhotoUploadServer",
+        //    "request_id":"1",
+        //    "params": {
+        //        "access_token":t,
+        //        "v":"5.122"
+        //    }});
+
+        canvas.toBlob( function(blob) {
+            send("VKWebAppShowStoryBox", {
+                "background_type":"image",
+                "blob":blob
+
+            })
+        });
+
+
     }
 
 

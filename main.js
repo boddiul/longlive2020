@@ -274,49 +274,27 @@ function checker(event)
         }
         else if (event.detail.data.request_id === "1") {
 
+            function jsonp(url, callback) {
+                var callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
+                window[callbackName] = function(data) {
+                    delete window[callbackName];
+                    document.body.removeChild(script);
+                    callback(data);
+                };
 
-            var $jsonp = (function(){
-                var that = {};
+                var script = document.createElement('script');
+                script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
+                document.body.appendChild(script);
+            }
 
-                that.send = function(src, options) {
-                    var callback_name = options.callbackName || 'callback',
-                        on_success = options.onSuccess || function(){},
-                        on_timeout = options.onTimeout || function(){},
-                        timeout = options.timeout || 10; // sec
-
-                    var timeout_trigger = window.setTimeout(function(){
-                        window[callback_name] = function(){};
-                        on_timeout();
-                    }, timeout * 1000);
-
-                    window[callback_name] = function(data){
-                        window.clearTimeout(timeout_trigger);
-                        on_success(data);
-                    }
-
-                    var script = document.createElement('script');
-                    script.type = 'text/javascript';
-                    script.async = true;
-                    script.src = src;
-
-                    document.getElementsByTagName('head')[0].appendChild(script);
-                }
-
-                return that;
-            })();
 
 
 
             let upload_url = event.detail.data.response.upload_url
 
-
-            var script = document.createElement('SCRIPT');
-            script.src = upload_url+'&callback=handleStuff'
-            document.getElementsByTagName("head")[0].appendChild(script);
-            function callbackFunc(result) {
-                console.log("done?")
-                alert(result.response)
-            }
+            jsonp(upload_url, function(userInfo) {
+                console.log(userInfo);
+            });
 
 
 

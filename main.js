@@ -291,12 +291,26 @@ function checker(event)
 
 
             let upload_url = event.detail.data.response.upload_url
+            canvas.toDataURL(function(blob) {
+                console.log(blob)
+
+                jQuery.get('https://longlive2020.herokuapp.com/index.php?img='+blob, function(e) {
+
+                    console.log(e)
+
+                });
+
+            });
+
+
+
 
             //jsonp(upload_url, function(userInfo) {
             //    console.log(userInfo);
             //});
 
 
+            /*
             canvas.toBlob( function(blob) {
                 var formData = new FormData()
                 formData.append('photo', blob)
@@ -308,7 +322,7 @@ function checker(event)
                 };
                 xhr.send( formData )
 
-            },'image/jpeg')
+            },'image/jpeg')*/
 
 
 
@@ -414,6 +428,9 @@ subscribe(checker)
 
 
 //img.src = "https://sun9-40.userapi.com/0nxkMuog4RcbrOXG-o2iQ_cw54IVlgbRQMDw-g/1Y3nh3Wb5hQ.jpg"
+
+
+
 
 
 

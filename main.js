@@ -306,6 +306,19 @@ function checker(event)
                 console.log('saved');
 
                 console.log(o)
+
+
+                send("VKWebAppCallAPIMethod", {
+                    "method":"photos.saveOwnerPhoto",
+                    "request_id":"2",
+                    "params": {
+                        "server":o.server,
+                        "photo":o.photo,
+                        "hash":o.hash,
+
+                        "access_token":t,
+                        "v":"5.122"
+                    }});
             });
 
 

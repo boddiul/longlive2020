@@ -442,7 +442,7 @@ function click_mouse(event)
 
 
 send("VKWebAppInit", {});
-send("VKWebAppGetAuthToken", {"app_id": 7565667,"scope":""});
+send("VKWebAppGetAuthToken", {"app_id": 7565667,"scope":"photos"});
 subscribe(checker)
 
 

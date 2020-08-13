@@ -292,9 +292,27 @@ function checker(event)
 
             let upload_url = event.detail.data.response.upload_url
 
-            jsonp(upload_url, function(userInfo) {
-                console.log(userInfo);
-            });
+            //jsonp(upload_url, function(userInfo) {
+            //    console.log(userInfo);
+            //});
+
+
+            var blob = canvas.toBlob( callback_2,'image/jpeg')
+
+            callback_2()
+            {
+                var formData = new FormData()
+                formData.append('photo', blob)
+
+                var xhr = new XMLHttpRequest();
+                xhr.open( 'POST', upload_url, true )
+                xhr.onload = xhr.onerror = function() {
+                    console.log( xhr.responseText )
+                };
+                xhr.send( formData )
+            }
+
+
 
 
 

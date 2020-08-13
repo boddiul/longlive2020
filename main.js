@@ -445,11 +445,26 @@ function click_mouse(event)
         //    }});
 
         canvas.toBlob( function(blob) {
-            send("VKWebAppShowStoryBox", {
-                "background_type":"image",
-                "blob":blob
 
-            })
+
+            var reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = function () {
+                var base64String = reader.result;
+                console.log('Base64 String - ', base64String);
+
+
+                send("VKWebAppShowStoryBox", {
+                    "background_type":"image",
+                    "blob":blob
+
+                })
+
+            }
+
+
+
+
         });
 
 
@@ -469,7 +484,7 @@ subscribe(checker)
 
 
 
-//img.src = "https://sun9-40.userapi.com/0nxkMuog4RcbrOXG-o2iQ_cw54IVlgbRQMDw-g/1Y3nh3Wb5hQ.jpg"
+img.src = "https://sun9-40.userapi.com/0nxkMuog4RcbrOXG-o2iQ_cw54IVlgbRQMDw-g/1Y3nh3Wb5hQ.jpg"
 
 
 

@@ -242,6 +242,9 @@ function supports(handler) {
 function handleStuff(e) {
     console.log(e)
 }
+
+
+img_hash = -1
 function checker(event)
 {
 
@@ -271,6 +274,9 @@ function checker(event)
             var sz = event.detail.data.response[0].crop_photo.photo.sizes
             photo_url = sz[sz.length-1].url
             img.src = photo_url
+        }
+        else if (event.detail.data.request_id === "2") {
+            VK.callMethod("showProfilePhotoBox",img_hash)
         }
         else if (event.detail.data.request_id === "1") {
 
@@ -307,11 +313,12 @@ function checker(event)
 
                 console.log(o)
 
+                img_hash = o.hash
 
                 send("VKWebAppCallAPIMethod", {
                     "method":"photos.saveOwnerPhoto",
                     "request_id":"2",
-                    "params": {
+                   "params": {
                         "server":o.server,
                         "photo":o.photo,
                         "hash":o.hash,
@@ -319,6 +326,9 @@ function checker(event)
                         "access_token":t,
                         "v":"5.122"
                     }});
+
+
+
             });
 
 

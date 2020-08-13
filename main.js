@@ -44,6 +44,7 @@ function touchHandler(event)
 }
 
 
+let t = -1
 
 document.addEventListener("touchstart", touchHandler, {passive:false});
 document.addEventListener("touchmove", touchHandler, {passive:false});
@@ -52,19 +53,7 @@ document.addEventListener("touchcancel", touchHandler, {passive:false});
 
 
 
-function click_mouse(event)
-{
-    let y = event.clientY/document.documentElement.clientHeight
 
-    console.log(y)
-
-    if (y>0.74 && y<0.85) {
-        download()
-    }
-
-
-
-}
 
 
 let crop = {x:4.93,x2:89.43,y:0,y2:100}
@@ -258,7 +247,6 @@ function supports(handler) {
     return false;
 };
 
-let t = -1
 function checker(event)
 {
 
@@ -280,24 +268,71 @@ function checker(event)
     }
 
 
-    if (event.detail.type==="VKWebAppCallAPIMethodResult"){
-        crop = event.detail.data.response[0].crop_photo.crop
-        var sz = event.detail.data.response[0].crop_photo.photo.sizes
-        let photo_url = sz[sz.length-1].url
+    if (event.detail.type==="VKWebAppCallAPIMethodResult") {
+
+        if (event.detail.data.request_id === "0")
+        {
+            crop = event.detail.data.response[0].crop_photo.crop
+            var sz = event.detail.data.response[0].crop_photo.photo.sizes
+            photo_url = sz[sz.length-1].url
+            img.src = photo_url
+        }
+        else if (event.detail.data.request_id === "1") {
+
+            let upload_url = event.detail.data.response[0].upload_url
 
 
-        img.src = photo_url
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', upload_url, true);
+            xhr.onload = function (e) {
+                // do something to response
+                console.log(e);
+            };
+            xhr.send(canvas.toDataURL());
+
+
+
+        }
+
+
 
     }
 
 
 }
 
+function click_mouse(event)
+{
+    let y = event.clientY/document.documentElement.clientHeight
+
+    console.log(y)
+
+    if (y>0.74 && y<0.85) {
+        //download()
+
+        send("VKWebAppCallAPIMethod", {
+            "method":"photos.getOwnerPhotoUploadServer",
+            "request_id":"1",
+            "params": {
+                "access_token":t,
+                "v":"5.122"
+            }});
+    }
+
+
+
+}
+
+
+
 
 
 send("VKWebAppInit", {});
 send("VKWebAppGetAuthToken", {"app_id": 7565667,"scope":""});
 subscribe(checker)
+
+
+
 
 
 

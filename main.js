@@ -292,7 +292,7 @@ function checker(event)
 send("VKWebAppInit", {});
 
 subscribe(checker)
-send("VKWebAppGetAuthToken", {"app_id": 7565667});
+send("VKWebAppGetAuthToken", {"app_id": 7565667,"scope":""});
 
 
 

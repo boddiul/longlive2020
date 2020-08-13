@@ -6,24 +6,7 @@ function toDataURL(url) {
     });
 }
 
-async function download() {
 
-
-    //const a = document.createElement("a");
-    //a.href = await canvas.toDataURL()
-    //a.download = "";
-    //document.body.appendChild(a);
-    //a.click();
-    //document.body.removeChild(a);
-
-
-
-        send("VKWebAppDownloadFile", {
-                "url": await canvas.toDataURL(),
-                "filename":"ava.png"
-            });
-
-}
 
 
 function touchHandler(event)
@@ -310,6 +293,26 @@ function checker(event)
 
 
 }
+
+function download() {
+
+
+    //const a = document.createElement("a");
+    //a.href = await canvas.toDataURL()
+    //a.download = "";
+    //document.body.appendChild(a);
+    //a.click();
+    //document.body.removeChild(a);
+
+
+
+    send("VKWebAppDownloadFile", {
+        "url": canvas.toDataURL(),
+        "filename":"ava.png"
+    });
+
+}
+
 
 function click_mouse(event)
 {

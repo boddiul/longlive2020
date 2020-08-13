@@ -67,7 +67,7 @@ function click_mouse(event)
 }
 
 
-let crop = [0,0,1,1]
+let crop = {x:4.93,x2:89.43,y:0,y2:100}
 
 document.addEventListener('mousedown',click_mouse);
 
@@ -84,9 +84,10 @@ img.crossOrigin = "anonymous"
 img.onload = function(){
 
 
-    let h_center = (img.height*crop[3]-img.height*crop[1])/2
-    let old_w = (img.width*crop[2]-img.width*crop[0])
-    ctx.drawImage(img,img.width*crop[0],h_center-old_w,old_w,old_w,0,0,wh,wh);
+    let h_center = (img.height*crop.y2/100-img.height*crop.y/100)/2
+    let old_w = (img.width*crop.x2/100-img.width*crop.x/100)
+
+    ctx.drawImage(img,img.width*crop.x/100,h_center-old_w/2,old_w,old_w,0,0,wh,wh);
 
     var over = new Image();
     over.onload = function () {
@@ -296,8 +297,6 @@ send("VKWebAppInit", {});
 
 subscribe(checker)
 send("VKWebAppGetAuthToken", {"app_id": 7565667,"scope":""});
-
-
 
 
 

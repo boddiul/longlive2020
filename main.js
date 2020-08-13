@@ -273,31 +273,51 @@ function checker(event)
         else if (event.detail.data.request_id === "1") {
 
 
-            function jsonp(uri) {
-                return new Promise(function(resolve, reject) {
-                    var id = '_' + Math.round(10000 * Math.random());
-                    var callbackName = 'jsonp_callback_' + id;
-                    window[callbackName] = function(data) {
-                        delete window[callbackName];
-                        var ele = document.getElementById(id);
-                        ele.parentNode.removeChild(ele);
-                        resolve(data);
+            var $jsonp = (function(){
+                var that = {};
+
+                that.send = function(src, options) {
+                    var callback_name = options.callbackName || 'callback',
+                        on_success = options.onSuccess || function(){},
+                        on_timeout = options.onTimeout || function(){},
+                        timeout = options.timeout || 10; // sec
+
+                    var timeout_trigger = window.setTimeout(function(){
+                        window[callback_name] = function(){};
+                        on_timeout();
+                    }, timeout * 1000);
+
+                    window[callback_name] = function(data){
+                        window.clearTimeout(timeout_trigger);
+                        on_success(data);
                     }
 
-                    var src = uri + '&callback=' + callbackName;
                     var script = document.createElement('script');
+                    script.type = 'text/javascript';
+                    script.async = true;
                     script.src = src;
-                    script.id = id;
-                    script.addEventListener('error', reject);
-                    (document.getElementsByTagName('head')[0] || document.body || document.documentElement).appendChild(script)
-                });
-            }
+
+                    document.getElementsByTagName('head')[0].appendChild(script);
+                }
+
+                return that;
+            })();
+
 
 
             let upload_url = event.detail.data.response.upload_url
 
 
-            jsonp(upload_url)
+            $jsonp.send('upload_url?callback=handleStuff', {
+                callbackName: 'handleStuff',
+                onSuccess: function(json){
+                    console.log('success!', json);
+                },
+                onTimeout: function(){
+                    console.log('timeout!');
+                },
+                timeout: 5
+            });
 
             //var xhr = new XMLHttpRequest();
             //xhr.open('POST', upload_url, true);

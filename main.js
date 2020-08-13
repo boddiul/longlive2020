@@ -239,7 +239,9 @@ function supports(handler) {
 
     return false;
 };
-
+function handleStuff(e) {
+    console.log(e)
+}
 function checker(event)
 {
 

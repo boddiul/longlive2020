@@ -265,7 +265,8 @@ function checker(event)
             "request_id":"0",
             "params": {
                 "fields":"crop_photo",
-                "access_token":t
+                "access_token":t,
+                "v":"5.122"
             }});
     }
 

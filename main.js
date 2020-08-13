@@ -294,23 +294,43 @@ function checker(event)
 
 }
 
-function download() {
+async function downloadFile(url, fetchProps) {
+    try {
+        const response = await fetch(url, fetchProps);
+
+        if (!response.ok) {
+            throw new Error(response);
+        }
+
+        // Extract filename from header
+        const filename = response.headers.get('content-disposition')
+            .split(';')
+            .find(n => n.includes('filename='))
+            .replace('filename=', '')
+            .trim()
+        ;
+
+        const blob = await response.blob();
+
+        // Download the file
+        saveAs(blob, filename);
+
+    } catch (error) {
+        throw new Error(error);
+    }
+}
 
 
-    //const a = document.createElement("a");
-    //a.href = await canvas.toDataURL()
-    //a.download = "";
-    //document.body.appendChild(a);
-    //a.click();
-    //document.body.removeChild(a);
 
 
 
-    send("VKWebAppDownloadFile", {
-        "url": canvas.toDataURL(),
-        "filename":"ava.png"
-    });
-
+// Save | Download image
+function downloadImage(data, filename = 'untitled.jpeg') {
+    var a = document.createElement('a');
+    a.href = data;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
 }
 
 
@@ -321,7 +341,12 @@ function click_mouse(event)
     console.log(y)
 
     if (y>0.74 && y<0.85) {
-        download()
+
+
+        var canvas = document.querySelector('#canvas');
+        var dataURL = canvas.toDataURL("image/jpeg", 1.0);
+        downloadImage(dataURL, 'ava.jpeg');
+
 
         //send("VKWebAppCallAPIMethod", {
         //    "method":"photos.getOwnerPhotoUploadServer",

@@ -80,7 +80,10 @@ var img = new Image();
 img.crossOrigin = "anonymous"
 img.onload = function(){
 
-    ctx.drawImage(img,0,0,img.width,img.width,0,0,wh,wh);
+
+    let h_center = (img.height*crop[3]-img.height*crop[1])/2
+    let old_w = (img.width*crop[2]-img.width*crop[0])
+    ctx.drawImage(img,img.width*crop[0],h_center-old_w,old_w,old_w,0,0,wh,wh);
 
     var over = new Image();
     over.onload = function () {
@@ -289,7 +292,7 @@ function checker(event)
 send("VKWebAppInit", {});
 
 subscribe(checker)
-send("VKWebAppGetAuthToken", {"app_id": 7565667, "scope": "photos"});
+send("VKWebAppGetAuthToken", {"app_id": 7565667});
 
 
 

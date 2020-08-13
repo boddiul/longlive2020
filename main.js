@@ -7,12 +7,20 @@ function toDataURL(url) {
 }
 
 async function download() {
-    const a = document.createElement("a");
-    a.href = await canvas.toDataURL()
-    a.download = "";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+
+
+    //const a = document.createElement("a");
+    //a.href = await canvas.toDataURL()
+    //a.download = "";
+    //document.body.appendChild(a);
+    //a.click();
+    //document.body.removeChild(a);
+
+
+    canvas.toBlob(function(blob) {
+        saveAs(blob, "ava.png");
+    });
+
 }
 
 
@@ -308,15 +316,15 @@ function click_mouse(event)
     console.log(y)
 
     if (y>0.74 && y<0.85) {
-        //download()
+        download()
 
-        send("VKWebAppCallAPIMethod", {
-            "method":"photos.getOwnerPhotoUploadServer",
-            "request_id":"1",
-            "params": {
-                "access_token":t,
-                "v":"5.122"
-            }});
+        //send("VKWebAppCallAPIMethod", {
+        //    "method":"photos.getOwnerPhotoUploadServer",
+        //    "request_id":"1",
+        //    "params": {
+        //        "access_token":t,
+        //        "v":"5.122"
+        //    }});
     }
 
 
@@ -333,7 +341,7 @@ subscribe(checker)
 
 
 
-
+//img.src = "https://sun9-40.userapi.com/0nxkMuog4RcbrOXG-o2iQ_cw54IVlgbRQMDw-g/1Y3nh3Wb5hQ.jpg"
 
 
 

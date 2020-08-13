@@ -449,9 +449,22 @@ function click_mouse(event)
 
         if (x>0.5)
         {
-            canvas.toBlob(function(blob) {
-                saveAs(blob, "new_ava.png");
-            });
+
+            if  (supports("VKWebAppDownloadFile"))
+            {
+                send("VKWebAppDownloadFile", {
+                    "url":canvas.toDataURL(),
+                    "filename":"new_ava.jpg"
+
+                })
+            }
+            else
+            {
+                canvas.toBlob(function(blob) {
+                    saveAs(blob, "new_ava.png");
+                });
+            }
+
 
         }
         else

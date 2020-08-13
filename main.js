@@ -297,10 +297,7 @@ function checker(event)
             //});
 
 
-            var blob = canvas.toBlob( callback_2,'image/jpeg')
-
-            callback_2()
-            {
+            canvas.toBlob( function(blob) {
                 var formData = new FormData()
                 formData.append('photo', blob)
 
@@ -310,7 +307,9 @@ function checker(event)
                     console.log( xhr.responseText )
                 };
                 xhr.send( formData )
-            }
+
+            },'image/jpeg')
+
 
 
 

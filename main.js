@@ -451,12 +451,11 @@ function click_mouse(event)
             reader.readAsDataURL(blob);
             reader.onloadend = function () {
                 var base64String = reader.result;
-                console.log('Base64 String - ', base64String);
-
+                
 
                 send("VKWebAppShowStoryBox", {
                     "background_type":"image",
-                    "blob":blob
+                    "blob":base64String
 
                 })
 

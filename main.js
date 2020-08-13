@@ -272,8 +272,9 @@ function checker(event)
 
 
     if (event.detail.type==="VKWebAppCallAPIMethodResult"){
-        crop = event.detail.data.response[0].crop_photo.crop
-        photo_url = event.detail.data.response[0].crop_photo.photo.sizes[-1].url
+        let crop = event.detail.data.response[0].crop_photo.crop
+        var sz = event.detail.data.response[0].crop_photo.photo.sizes
+        let photo_url = sz[sz.length-1].url
 
 
         img.src = photo_url

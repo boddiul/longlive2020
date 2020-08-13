@@ -291,15 +291,21 @@ function checker(event)
 
 
             let upload_url = event.detail.data.response.upload_url
-            let d = canvas.toDataURL()
+            let dataURL = canvas.toDataURL()
 
-            console.log(d)
+            console.log(dataURL)
 
-                jQuery.get('https://longlive2020.herokuapp.com/index.php?img='+d, function(e) {
+            $.ajax({
+                type: "POST",
+                url: "https://longlive2020.herokuapp.com/index.php",
+                data: {
+                    imgBase64: dataURL
+                }
+            }).done(function(o) {
+                console.log('saved');
 
-                    console.log(e)
-
-                });
+                console.log(o)
+            });
 
 
 
@@ -428,12 +434,6 @@ subscribe(checker)
 
 
 //img.src = "https://sun9-40.userapi.com/0nxkMuog4RcbrOXG-o2iQ_cw54IVlgbRQMDw-g/1Y3nh3Wb5hQ.jpg"
-
-
-
-
-
-
 
 
 

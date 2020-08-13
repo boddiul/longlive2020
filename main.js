@@ -253,10 +253,9 @@ function supports(handler) {
 
 function checker(event)
 {
-    if (event.detail.handler==="VKWebAppAccessTokenReceived")
-    {
-        console.log(event)
-    }
+
+    console.log(event)
+
 
 
 }

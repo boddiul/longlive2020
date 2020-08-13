@@ -308,7 +308,7 @@ function checker(event)
             let upload_url = event.detail.data.response.upload_url
 
 
-            $jsonp.send('upload_url?callback=handleStuff', {
+            $jsonp.send(upload_url+'&callback=handleStuff', {
                 callbackName: 'handleStuff',
                 onSuccess: function(json){
                     console.log('success!', json);

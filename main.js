@@ -276,7 +276,7 @@ function checker(event)
             img.src = photo_url
         }
         else if (event.detail.data.request_id === "2") {
-            VK.callMethod("showProfilePhotoBox",img_hash)
+            VK.callMethod("showProfilePhotoBox",event.detail.data.response.photo_hash)
         }
         else if (event.detail.data.request_id === "1") {
 

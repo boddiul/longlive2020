@@ -279,7 +279,7 @@ function checker(event)
         }
         else if (event.detail.data.request_id === "1") {
 
-            let upload_url = event.detail.data.response[0].upload_url
+            let upload_url = event.detail.data.response.upload_url
 
 
             var xhr = new XMLHttpRequest();

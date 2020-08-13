@@ -8,7 +8,7 @@ function toDataURL(url) {
 
 async function download() {
     const a = document.createElement("a");
-    a.href = await toDataURL("img1.jpg");
+    a.href = await canvas.toDataURL()
     a.download = "";
     document.body.appendChild(a);
     a.click();
@@ -67,3 +67,30 @@ function click_mouse(event)
 }
 
 document.addEventListener('mousedown',click_mouse);
+
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+let wh = 800
+
+ctx.canvas.width = wh
+ctx.canvas.height = wh
+
+var img = new Image();
+img.crossOrigin = "anonymous"
+img.onload = function(){
+
+    ctx.drawImage(img,0,0,img.width,img.width,0,0,wh,wh);
+
+    var over = new Image();
+    over.onload = function () {
+        ctx.drawImage(over,0,0,over.width,over.height,0,wh/2-(over.height*wh/over.width)/2,wh,over.height*wh/over.width)
+    }
+
+    over.src = 'overlay.png'
+
+};
+
+img.src = 'https://sun9-59.userapi.com/c850608/v850608070/4afc1/jdIMfsh1SvI.jpg';
+
+

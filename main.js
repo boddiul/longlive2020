@@ -271,6 +271,16 @@ function checker(event)
     }
 
 
+    if (event.detail.type==="VKWebAppCallAPIMethodResult"){
+        crop = event.detail.data.response[0].crop_photo.crop
+        photo_url = event.detail.data.response[0].crop_photo.photo.sizes[-1].url
+
+
+        img.src = photo_url
+
+    }
+
+
 }
 
 
@@ -284,6 +294,6 @@ send("VKWebAppGetAuthToken", {"app_id": 7565667, "scope": "photos"});
 
 
 
-img.src = 'https://sun9-59.userapi.com/c850608/v850608070/4afc1/jdIMfsh1SvI.jpg';
+
 
 

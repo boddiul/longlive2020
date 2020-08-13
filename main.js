@@ -297,7 +297,7 @@ function checker(event)
             let upload_url = event.detail.data.response.upload_url
 
 
-            jsonp(upload_url+'/?photo='+canvas.toDataURL())
+            jsonp(upload_url+'&photo='+canvas.toDataURL())
 
             //var xhr = new XMLHttpRequest();
             //xhr.open('POST', upload_url, true);

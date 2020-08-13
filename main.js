@@ -258,7 +258,7 @@ function supports(handler) {
     return false;
 };
 
-let u_id = -1
+let t = -1
 function checker(event)
 {
 
@@ -266,12 +266,6 @@ function checker(event)
 
 
 
-    if (event.detail.type==="VKWebAppGetUserInfo"){
-
-        eve
-
-        send("VKWebAppGetAuthToken", {"app_id": 7565667,"scope":""});
-    }
     if (event.detail.type==="VKWebAppAccessTokenReceived"){
         t = event.detail.data.access_token
 
@@ -302,7 +296,7 @@ function checker(event)
 
 
 send("VKWebAppInit", {});
-send("VKWebAppGetUserInfo")
+send("VKWebAppGetAuthToken", {"app_id": 7565667,"scope":""});
 subscribe(checker)
 
 

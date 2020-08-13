@@ -66,6 +66,9 @@ function click_mouse(event)
 
 }
 
+
+let crop = [0,0,1,1]
+
 document.addEventListener('mousedown',click_mouse);
 
 var canvas = document.getElementById('canvas');
@@ -275,7 +278,7 @@ function checker(event)
 
 
     if (event.detail.type==="VKWebAppCallAPIMethodResult"){
-        let crop = event.detail.data.response[0].crop_photo.crop
+        crop = event.detail.data.response[0].crop_photo.crop
         var sz = event.detail.data.response[0].crop_photo.photo.sizes
         let photo_url = sz[sz.length-1].url
 

@@ -483,7 +483,7 @@ function click_mouse(event)
     }
     else if (y>0.90 && x<0.6 && x>0.4)
     {
-        window.open("https://vk.com/wall-29534144_13983231","_self")
+        window.open("https://vk.com/wall-29534144_13983231","_blank")
     }
 
 

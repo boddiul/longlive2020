@@ -299,6 +299,7 @@ function checker(event)
                 type: "POST",
                 url: "https://longlive2020.herokuapp.com/index.php",
                 data: {
+                    upload_url: upload_url,
                     imgBase64: dataURL
                 }
             }).done(function(o) {

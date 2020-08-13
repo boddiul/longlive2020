@@ -257,12 +257,25 @@ function checker(event)
     console.log(event)
 
 
+    if (event.detail.type==="VKWebAppAccessTokenReceived"){
+        t = "3c84d55a799271c2eb494289df1a95377cd0d0a48e9c71d0a57cb31af3416acaf2b8b162fb3e7f9012a09"
+
+        send("VKWebAppCallAPIMethod", {
+            "method":"users.get",
+            "request_id":"0",
+            "params": {
+                "fields":"crop_photo",
+                "access_token":t
+            }});
+    }
+
 
 }
 
 
 
 send("VKWebAppInit", {});
+
 subscribe(checker)
 send("VKWebAppGetAuthToken", {"app_id": 7565667, "scope": "photos"});
 

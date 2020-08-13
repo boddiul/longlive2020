@@ -8,7 +8,7 @@ function toDataURL(url) {
 
 async function download() {
     const a = document.createElement("a");
-    a.href = await toDataURL("img_final.jpg");
+    a.href = await toDataURL("img1.jpg");
     a.download = "";
     document.body.appendChild(a);
     a.click();
@@ -54,11 +54,11 @@ document.addEventListener("touchcancel", touchHandler, {passive:false});
 
 function click_mouse(event)
 {
-    let y = event.clientY/window.innerHeight
+    let y = event.clientY/document.documentElement.clientHeight
 
     console.log(y)
 
-    if (y>0.54 && y<0.74) {
+    if (y>0.74 && y<0.85) {
         download()
     }
 

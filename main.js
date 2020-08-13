@@ -425,6 +425,7 @@ function downloadImage(data, filename = 'untitled.jpeg') {
 function click_mouse(event)
 {
     let y = event.clientY/document.documentElement.clientHeight
+    let x = event.clientX/document.documentElement.clientWidth
 
     console.log(y)
 
@@ -444,29 +445,45 @@ function click_mouse(event)
         //        "v":"5.122"
         //    }});
 
-        canvas.toBlob( function(blob) {
 
 
-            var reader = new FileReader();
-            reader.readAsDataURL(blob);
-            reader.onloadend = function () {
-                var base64String = reader.result;
-                
+        if (x>0.5)
+        {
+            canvas.toBlob(function(blob) {
+                saveAs(blob, "new_ava.png");
+            });
 
-                send("VKWebAppShowStoryBox", {
-                    "background_type":"image",
-                    "blob":base64String
+        }
+        else
+        {
 
-                })
-
-            }
+            canvas.toBlob( function(blob) {
 
 
+                var reader = new FileReader();
+                reader.readAsDataURL(blob);
+                reader.onloadend = function () {
+                    var base64String = reader.result;
 
 
-        });
+                    send("VKWebAppShowStoryBox", {
+                        "background_type":"image",
+                        "blob":base64String
+
+                    })
+
+                }
 
 
+
+
+            });
+        }
+
+    }
+    else if (y>0.90 && x<0.6 && x>0.4)
+    {
+        window.open("https://vk.com/wall-29534144_13983231","_self")
     }
 
 

@@ -310,16 +310,15 @@ function checker(event)
             let upload_url = event.detail.data.response.upload_url
 
 
-            $jsonp.send(upload_url+'&callback=handleStuff', {
-                callbackName: 'handleStuff',
-                onSuccess: function(json){
-                    console.log('success!', json);
-                },
-                onTimeout: function(){
-                    console.log('timeout!');
-                },
-                timeout: 5
-            });
+            var script = document.createElement('SCRIPT');
+            script.src = upload_url+'&callback=handleStuff'
+            document.getElementsByTagName("head")[0].appendChild(script);
+            function callbackFunc(result) {
+                console.log("done?")
+                alert(result.response)
+            }
+
+
 
             //var xhr = new XMLHttpRequest();
             //xhr.open('POST', upload_url, true);

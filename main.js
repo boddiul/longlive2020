@@ -258,14 +258,22 @@ function supports(handler) {
     return false;
 };
 
+let u_id = -1
 function checker(event)
 {
 
     console.log(event)
 
 
+
+    if (event.detail.type==="VKWebAppGetUserInfo"){
+
+        eve
+
+        send("VKWebAppGetAuthToken", {"app_id": 7565667,"scope":""});
+    }
     if (event.detail.type==="VKWebAppAccessTokenReceived"){
-        t = "3c84d55a799271c2eb494289df1a95377cd0d0a48e9c71d0a57cb31af3416acaf2b8b162fb3e7f9012a09"
+        t = event.detail.data.access_token
 
         send("VKWebAppCallAPIMethod", {
             "method":"users.get",
@@ -294,9 +302,9 @@ function checker(event)
 
 
 send("VKWebAppInit", {});
-
+send("VKWebAppGetUserInfo")
 subscribe(checker)
-send("VKWebAppGetAuthToken", {"app_id": 7565667,"scope":""});
+
 
 
 

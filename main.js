@@ -257,7 +257,7 @@ function checker(event)
 
             $.ajax({
                 type: "POST",
-                url: "https://longlive2020.herokuapp.com/index.php",
+                url: "http://lentach_img.aaaaa.team/",
                 data: {
                     upload_url: upload_url,
                     imgBase64: dataURL

@@ -394,6 +394,10 @@ function button_download()
 
         })
     }
+    else if ((typeof window !== UNDEFINED) && window.AndroidBridge)
+    {
+        button_stories()
+    }
     else
     {
 

@@ -240,12 +240,20 @@ function checker(event)
     if (event.detail.type==="VKWebAppCallAPIMethodResult") {
 
         if (event.detail.data.request_id === "0") {
-            crop = event.detail.data.response[0].crop_photo.crop
-            var sz = event.detail.data.response[0].crop_photo.photo.sizes
-            photo_url = sz[sz.length - 1].url
-            img.src = photo_url
 
             document.getElementById("load").style.display = "none"
+            try {
+                crop = event.detail.data.response[0].crop_photo.crop
+                var sz = event.detail.data.response[0].crop_photo.photo.sizes
+                photo_url = sz[sz.length - 1].url
+                img.src = photo_url
+            }
+            catch (e) {
+                img.src = "white.jpg"
+            }
+
+
+
         }
         else if (event.detail.data.request_id === "1") {
 

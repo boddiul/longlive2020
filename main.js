@@ -31,7 +31,7 @@ img.crossOrigin = "anonymous"
 img.onload = function(){
 
 
-    let h_center = (img.height*crop.y2/100-img.height*crop.y/100)/2
+    let h_center = (img.height*crop.y2/100+img.height*crop.y/100)/2
     let old_w = (img.width*crop.x2/100-img.width*crop.x/100)
 
     ctx.drawImage(img,img.width*crop.x/100,h_center-old_w/2,old_w,old_w,0,0,wh,wh);

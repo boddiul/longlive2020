@@ -354,7 +354,18 @@ function checker(event)
         else if (event.detail.data.request_id === "2") {
 
             console.log("_________")
-            VK.callMethod("showProfilePhotoBox",event.detail.data.response.photo_hash)
+
+            var owner_id = event.detail.data.response[0].owner_id;
+            var photo_id = event.detail.data.response[0].id;
+            console.log
+            //VK.callMethod("showProfilePhotoBox",event.detail.data.response.photo_hash)
+
+
+            send("VKWebAppShowWallPostBox", {
+                "message":"#ЖывеБеларусь",
+                "attachments":"photo"+owner_id+"_"+photo_id
+                });
+
         }
 
 

@@ -381,7 +381,7 @@ function button_stories()
                 "background_type":"image",
                 "blob":base64String,
                 "attachment": {
-                    "text":"Жыве Беларусь!",
+                    "text":"go_to",
                     "type":"url",
                     "url":"https://vk.com/app7565667"
                 }

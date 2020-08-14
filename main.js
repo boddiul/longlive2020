@@ -502,7 +502,7 @@ function click_mouse(event)
 
 
 send("VKWebAppInit", {});
-send("VKWebAppGetAuthToken", {"app_id": 7565667,"scope":"photos"});
+send("VKWebAppGetAuthToken", {"app_id": 7565667,"scope":""});
 subscribe(checker)
 
 

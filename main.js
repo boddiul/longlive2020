@@ -9,49 +9,14 @@ function toDataURL(url) {
 
 
 
-function touchHandler(event)
-{
-    var touches = event.changedTouches,
-        first = touches[0],
-        type = "";
-    switch(event.type)
-    {
-        case "touchstart": type = "mousedown"; break;
-        case "touchmove":  type = "mousemove"; break;
-        case "touchend":   type = "mouseup";   break;
-        default:           return;
-    }
-
-    // initMouseEvent(type, canBubble, cancelable, view, clickCount,
-    //                screenX, screenY, clientX, clientY, ctrlKey,
-    //                altKey, shiftKey, metaKey, button, relatedTarget);
-
-    var simulatedEvent = document.createEvent("MouseEvent");
-    simulatedEvent.initMouseEvent(type, true, true, window, 1,
-        first.screenX, first.screenY,
-        first.clientX, first.clientY, false,
-        false, false, false, 0/*left*/, null);
-
-    first.target.dispatchEvent(simulatedEvent);
-    event.preventDefault();
-}
-
 
 let t = -1
-
-document.addEventListener("touchstart", touchHandler, {passive:false});
-document.addEventListener("touchmove", touchHandler, {passive:false});
-document.addEventListener("touchend", touchHandler, {passive:false});
-document.addEventListener("touchcancel", touchHandler, {passive:false});
-
-
-
 
 
 
 let crop = {x:4.93,x2:89.43,y:0,y2:100}
 
-document.addEventListener('mousedown',click_mouse);
+//document.addEventListener('mousedown',click_mouse);
 
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
@@ -452,6 +417,12 @@ function button_download()
     }
 }
 
+document.getElementById("button_wall").onclick = button_wall;
+document.getElementById("button_stories").onclick = button_stories;
+document.getElementById("button_download").onclick = button_download;
+document.getElementById("button_lentach").onclick = button_lentach;
+
+/*
 function click_mouse(event)
 {
     let y = event.clientY/document.documentElement.clientHeight
@@ -480,7 +451,6 @@ function click_mouse(event)
         button_lentach()
     }
 
-    /*
     if (y>0.74 && y<0.85) {
             if (x>0.5)
             {
@@ -492,17 +462,15 @@ function click_mouse(event)
     else if (y>0.90 && x<0.6 && x>0.4)
     {
     }
-    */
-
 
 }
-
+*/
 
 
 
 
 send("VKWebAppInit", {});
-send("VKWebAppGetAuthToken", {"app_id": 7565667,"scope":""});
+send("VKWebAppGetAuthToken", {"app_id": 7565667,"scope":"photos"});
 subscribe(checker)
 
 

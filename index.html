@@ -28,7 +28,18 @@
 
 
 <style>
+    .btn {
+        margin-left: 50%;
+        transform: translateX(-50%) translateY(0);
+        outline:none;
+        position: absolute;
+        height: 6vh;
+    }
+    /* Adding transformation when the button is active */
 
+    .btn:active {
+        transform: translateX(-50%) translateY(0.3vh);
+    }
 
 </style>
 
@@ -47,6 +58,13 @@
 <img id="main_img"  src = "main.png"   style="height: 100vh; position: absolute;
   margin-left: 50%;
   transform: translateX(-50%);">
+
+<input class="btn" id="button_wall" type="image" src = "button_wall.png" style="margin-top:63vh;">
+<input class="btn" id="button_stories" type="image" src = "button_stories.png" style="margin-top:72vh;">
+<input class="btn" id="button_download" type="image" src = "button_download.png" style="margin-top:81vh;">
+
+<input class="btn" id="button_lentach" type="image" src = "button_lentach.png" style="height: 8vh; margin-top:90vh;">
+
 <iframe style="display:none;" name="hiddenIframe" id="hiddenIframe"></iframe>
 
 

@@ -379,7 +379,12 @@ function button_stories()
 
             send("VKWebAppShowStoryBox", {
                 "background_type":"image",
-                "blob":base64String
+                "blob":base64String,
+                "attachment": {
+                    "text":"Жыве Беларусь!",
+                    "type":"url",
+                    "url":"https://vk.com/app7565667"
+                }
 
             })
 

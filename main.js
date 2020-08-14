@@ -298,7 +298,7 @@ function checker(event)
 
             send("VKWebAppShowWallPostBox", {
                 "message":"#ЖывеБеларусь",
-                "attachments":"photo"+owner_id+"_"+photo_id
+                "attachments":"photo"+owner_id+"_"+photo_id+"https://vk.com/app7565667"
                 });
 
         }

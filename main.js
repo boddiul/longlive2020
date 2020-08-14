@@ -43,6 +43,11 @@ img.onload = function(){
 
     over.src = 'overlay.png'
 
+
+    document.getElementById("button_wall").style.display = "inline-block"
+    document.getElementById("button_stories").style.display = "inline-block"
+    document.getElementById("button_download").style.display = "inline-block"
+
 };
 
 
@@ -255,7 +260,6 @@ function checker(event)
                     imgBase64: dataURL
                 }
             }).done(function(o) {
-                console.log('saved');
 
                 console.log(o)
 
@@ -405,14 +409,14 @@ function button_download()
     {
         send("VKWebAppDownloadFile", {
             "url":canvas.toDataURL(),
-            "filename":"new_ava.jpg"
+            "filename":"belarus_ava.jpg"
 
         })
     }
     else
     {
         canvas.toBlob(function(blob) {
-            saveAs(blob, "new_ava.png");
+            saveAs(blob, "belarus_ava.png");
         });
     }
 }

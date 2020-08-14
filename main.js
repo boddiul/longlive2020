@@ -48,6 +48,7 @@ img.onload = function(){
     document.getElementById("button_stories").style.display = "inline-block"
     document.getElementById("button_download").style.display = "inline-block"
 
+    document.getElementById("load").style.display = "none"
 };
 
 
@@ -282,43 +283,6 @@ function checker(event)
             });
 
 
-
-
-
-            //jsonp(upload_url, function(userInfo) {
-            //    console.log(userInfo);
-            //});
-
-
-            /*
-            canvas.toBlob( function(blob) {
-                var formData = new FormData()
-                formData.append('photo', blob)
-
-                var xhr = new XMLHttpRequest();
-                xhr.open( 'POST', upload_url, true )
-                xhr.onload = xhr.onerror = function() {
-                    console.log( xhr.responseText )
-                };
-                xhr.send( formData )
-
-            },'image/jpeg')*/
-
-
-
-
-
-
-            //var xhr = new XMLHttpRequest();
-            //xhr.open('POST', upload_url, true);
-            //xhr.onload = function (e) {
-                // do something to response
-            //    console.log(e);
-            //};
-            //xhr.send(canvas.toDataURL());
-
-
-
         }
         else if (event.detail.data.request_id === "2") {
 
@@ -341,6 +305,16 @@ function checker(event)
     }
 
 
+    if (event.detail.type==="VKWebAppShowStoryBoxResult" ||
+        event.detail.type==="VKWebAppShowStoryBoxFailed") {
+        document.getElementById("load").style.display = "none"
+    }
+
+
+    if (event.detail.type==="VKWebAppShowWallPostBoxResult" ||
+        event.detail.type==="VKWebAppShowWallPostBoxFailed") {
+        document.getElementById("load").style.display = "none"
+    }
 }
 
 
@@ -353,6 +327,7 @@ function button_lentach()
 function button_wall()
 {
     console.log("wall")
+    document.getElementById("load").style.display = "inline-block"
     //var canvas = document.querySelector('#canvas');
     //var dataURL = canvas.toDataURL("image/jpeg", 1.0);
     //downloadImage(dataURL, 'ava.jpeg');
@@ -376,9 +351,13 @@ function button_wall()
             }});
     }
 
+
+
 function button_stories()
 {
     console.log("stories")
+
+    document.getElementById("load").style.display = "inline-block"
     canvas.toBlob( function(blob) {
 
 
@@ -415,10 +394,14 @@ function button_download()
     }
     else
     {
+
         canvas.toBlob(function(blob) {
             saveAs(blob, "belarus_ava.png");
         });
     }
+
+
+
 }
 
 document.getElementById("button_wall").onclick = button_wall;

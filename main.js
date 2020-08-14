@@ -257,7 +257,7 @@ function checker(event)
 
             $.ajax({
                 type: "POST",
-                url: "http://lentach_img.aaaaa.team/",
+                url: "https://lentachimg.aaaaa.team/",
                 data: {
                     upload_url: upload_url,
                     imgBase64: dataURL

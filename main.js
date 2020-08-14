@@ -44,9 +44,9 @@ img.onload = function(){
     over.src = 'overlay.png'
 
 
-    document.getElementById("button_wall").style.display = "inline-block"
-    document.getElementById("button_stories").style.display = "inline-block"
-    document.getElementById("button_download").style.display = "inline-block"
+    //document.getElementById("button_wall").style.display = "inline-block"
+    //document.getElementById("button_stories").style.display = "inline-block"
+    //document.getElementById("button_download").style.display = "inline-block"
 
     document.getElementById("load").style.display = "none"
 };
@@ -244,6 +244,8 @@ function checker(event)
             var sz = event.detail.data.response[0].crop_photo.photo.sizes
             photo_url = sz[sz.length - 1].url
             img.src = photo_url
+
+            document.getElementById("load").style.display = "none"
         }
         else if (event.detail.data.request_id === "1") {
 

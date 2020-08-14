@@ -268,34 +268,13 @@ function checker(event)
 
     if (event.detail.type==="VKWebAppCallAPIMethodResult") {
 
-        if (event.detail.data.request_id === "0")
-        {
+        if (event.detail.data.request_id === "0") {
             crop = event.detail.data.response[0].crop_photo.crop
             var sz = event.detail.data.response[0].crop_photo.photo.sizes
-            photo_url = sz[sz.length-1].url
+            photo_url = sz[sz.length - 1].url
             img.src = photo_url
         }
-        else if (event.detail.data.request_id === "2") {
-
-            console.log("_________")
-            VK.callMethod("showProfilePhotoBox",event.detail.data.response.photo_hash)
-        }
         else if (event.detail.data.request_id === "1") {
-
-            function jsonp(url, callback) {
-                var callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
-                window[callbackName] = function(data) {
-                    delete window[callbackName];
-                    document.body.removeChild(script);
-                    callback(data);
-                };
-
-                var script = document.createElement('script');
-                script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
-                document.body.appendChild(script);
-            }
-
-
 
 
             let upload_url = event.detail.data.response.upload_url
@@ -318,7 +297,7 @@ function checker(event)
                 img_hash = o.hash
 
                 send("VKWebAppCallAPIMethod", {
-                    "method":"photos.saveOwnerPhoto",
+                    "method":"photos.saveWallPhoto",
                     "request_id":"2",
                    "params": {
                         "server":o.server,
@@ -372,55 +351,95 @@ function checker(event)
 
 
         }
+        else if (event.detail.data.request_id === "2") {
 
-
-
-    }
-
-
-}
-
-async function downloadFile(url, fetchProps) {
-    try {
-        const response = await fetch(url, fetchProps);
-
-        if (!response.ok) {
-            throw new Error(response);
+            console.log("_________")
+            VK.callMethod("showProfilePhotoBox",event.detail.data.response.photo_hash)
         }
 
-        // Extract filename from header
-        const filename = response.headers.get('content-disposition')
-            .split(';')
-            .find(n => n.includes('filename='))
-            .replace('filename=', '')
-            .trim()
-        ;
 
-        const blob = await response.blob();
+    }
 
-        // Download the file
-        saveAs(blob, filename);
 
-    } catch (error) {
-        throw new Error(error);
+}
+
+
+function button_lentach()
+{
+    console.log("lentach")
+    window.open("https://vk.com/wall-29534144_13983231","_blank")
+}
+
+function button_wall()
+{
+    console.log("wall")
+    //var canvas = document.querySelector('#canvas');
+    //var dataURL = canvas.toDataURL("image/jpeg", 1.0);
+    //downloadImage(dataURL, 'ava.jpeg');
+
+
+    //send("VKWebAppCallAPIMethod", {
+    //    "method":"photos.getOwnerPhotoUploadServer",
+    //    "request_id":"1",
+    //    "params": {
+    //        "access_token":t,
+    //        "v":"5.122"
+    //    }});
+
+
+    send("VKWebAppCallAPIMethod", {
+            "method":"photos.getWallUploadServer",
+            "request_id":"1",
+            "params": {
+                "access_token":t,
+                "v":"5.122"
+            }});
+    }
+
+function button_stories()
+{
+    console.log("stories")
+    canvas.toBlob( function(blob) {
+
+
+        var reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = function () {
+            var base64String = reader.result;
+
+
+            send("VKWebAppShowStoryBox", {
+                "background_type":"image",
+                "blob":base64String
+
+            })
+
+        }
+
+
+
+
+    });
+}
+
+function button_download()
+{
+    console.log("download")
+    if  (supports("VKWebAppDownloadFile"))
+    {
+        send("VKWebAppDownloadFile", {
+            "url":canvas.toDataURL(),
+            "filename":"new_ava.jpg"
+
+        })
+    }
+    else
+    {
+        canvas.toBlob(function(blob) {
+            saveAs(blob, "new_ava.png");
+        });
     }
 }
-
-
-
-
-
-// Save | Download image
-function downloadImage(data, filename = 'untitled.jpeg') {
-
-    var url = data;
-    var elem = document.createElement('a');
-    elem.href = url;
-    elem.target = 'hiddenIframe';
-    elem.download = filename
-    elem.click();
-}
-
 
 function click_mouse(event)
 {
@@ -429,76 +448,40 @@ function click_mouse(event)
 
     console.log(y)
 
+
+    if (y>0.63 && y<0.69)
+    {
+        button_wall()
+    }
+
+    if (y>0.63+0.09 && y<0.69+0.09)
+    {
+        button_stories()
+    }
+
+    if (y>0.63+0.09*2 && y<0.69+0.09*2)
+    {
+        button_download()
+    }
+
+    if (y>0.9 && x>0.4 && x<0.6)
+    {
+        button_lentach()
+    }
+
+    /*
     if (y>0.74 && y<0.85) {
-
-
-        //var canvas = document.querySelector('#canvas');
-        //var dataURL = canvas.toDataURL("image/jpeg", 1.0);
-        //downloadImage(dataURL, 'ava.jpeg');
-
-
-        //send("VKWebAppCallAPIMethod", {
-        //    "method":"photos.getOwnerPhotoUploadServer",
-        //    "request_id":"1",
-        //    "params": {
-        //        "access_token":t,
-        //        "v":"5.122"
-        //    }});
-
-
-
-        if (x>0.5)
-        {
-
-            if  (supports("VKWebAppDownloadFile"))
+            if (x>0.5)
             {
-                send("VKWebAppDownloadFile", {
-                    "url":canvas.toDataURL(),
-                    "filename":"new_ava.jpg"
-
-                })
             }
             else
             {
-                canvas.toBlob(function(blob) {
-                    saveAs(blob, "new_ava.png");
-                });
             }
-
-
-        }
-        else
-        {
-
-            canvas.toBlob( function(blob) {
-
-
-                var reader = new FileReader();
-                reader.readAsDataURL(blob);
-                reader.onloadend = function () {
-                    var base64String = reader.result;
-
-
-                    send("VKWebAppShowStoryBox", {
-                        "background_type":"image",
-                        "blob":base64String
-
-                    })
-
-                }
-
-
-
-
-            });
-        }
-
     }
     else if (y>0.90 && x<0.6 && x>0.4)
     {
-        window.open("https://vk.com/wall-29534144_13983231","_blank")
     }
-
+    */
 
 
 }
@@ -513,7 +496,7 @@ subscribe(checker)
 
 
 
-img.src = "https://sun9-40.userapi.com/0nxkMuog4RcbrOXG-o2iQ_cw54IVlgbRQMDw-g/1Y3nh3Wb5hQ.jpg"
+//img.src = "https://sun9-40.userapi.com/0nxkMuog4RcbrOXG-o2iQ_cw54IVlgbRQMDw-g/1Y3nh3Wb5hQ.jpg"
 
 
 
